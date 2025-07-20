@@ -13,7 +13,7 @@ class UserTest extends TestCase
     public function test_users_table_has_expected_columns()
     {
         $this->assertTrue(Schema::hasColumns('users', [
-            'id', 'mobile', 'password', 'profile_image', 'created_at', 'updated_at',
+            'id', 'mobile', 'password', 'avatar', 'created_at', 'updated_at',
         ]));
     }
 }

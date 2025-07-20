@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService\AuthService;
+use App\Services\AuthService\AuthServiceInterface;
+use App\Services\ProfileService\ProfileService;
+use App\Services\ProfileService\ProfileServiceInterface;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(AuthServiceInterface::class, AuthService::class);
+        $this->app->singleton(ProfileServiceInterface::class, ProfileService::class);
     }
 
     /**
@@ -19,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        JsonResource::withoutWrapping();
     }
 }

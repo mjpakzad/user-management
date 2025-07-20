@@ -23,10 +23,12 @@ setup:
 	$(COMPOSE) exec $(APP_SERVICE) php artisan key:generate
 	$(COMPOSE) exec $(APP_SERVICE) php artisan jwt:secret
 	$(COMPOSE) exec $(APP_SERVICE) php artisan migrate --seed
+	$(COMPOSE) exec $(APP_SERVICE) php artisan storage:link
 
 pipeline:
 	$(COMPOSE) exec $(APP_SERVICE) composer install
 	$(COMPOSE) exec $(APP_SERVICE) php artisan migrate --seed
+	$(COMPOSE) exec $(APP_SERVICE) php artisan storage:link
 
 shell:
 	$(COMPOSE) exec $(APP_SERVICE) bash
