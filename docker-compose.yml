@@ -1,0 +1,64 @@
+x-restart-policy: &restart_policy
+    restart: unless-stopped
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: user-management-app
+        <<: *restart_policy
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+            - redis
+
+    nginx:
+        image: nginx:latest
+        container_name: user-management-nginx
+        <<: *restart_policy
+        ports:
+            - '80:80'
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx:/etc/nginx/conf.d
+        depends_on:
+            -   app
+
+    db:
+        image: mysql:8.0
+        container_name: user-management-db
+        <<: *restart_policy
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - dbdata:/var/lib/mysql
+
+    redis:
+        image: redis:alpine
+        container_name: user-management-redis
+        <<: *restart_policy
+        ports:
+            - '6379:6379'
+
+    queue:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: user-management-queue
+        <<: *restart_policy
+        working_dir: /var/www
+        command: php artisan horizon
+        volumes:
+            -   ./:/var/www
+        depends_on:
+            - app
+            - redis
+
+volumes:
+    dbdata:
