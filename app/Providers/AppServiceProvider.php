@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\AuthService\AuthService;
 use App\Services\AuthService\AuthServiceInterface;
+use App\Services\PostService\PostService;
+use App\Services\PostService\PostServiceInterface;
 use App\Services\ProfileService\ProfileService;
 use App\Services\ProfileService\ProfileServiceInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(AuthServiceInterface::class, AuthService::class);
         $this->app->singleton(ProfileServiceInterface::class, ProfileService::class);
+        $this->app->singleton(PostServiceInterface::class, PostService::class);
     }
 
     /**
