@@ -564,6 +564,62 @@
                     }
                 ]
             }
+        },
+        "/api/v1/users/ranking": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get users ordered by total views on their posts",
+                "operationId": "2036853b092bae5699ab66f2260fa2a2",
+                "responses": {
+                    "200": {
+                        "description": "Ranked list of users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "mobile": {
+                                                        "type": "string"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "total_views": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "server_time": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -618,6 +674,10 @@
         {
             "name": "Profile",
             "description": "User profile operations"
+        },
+        {
+            "name": "Users",
+            "description": "Operations related to user ranking"
         }
     ]
 }

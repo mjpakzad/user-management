@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
+use App\Http\Controllers\API\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -16,7 +17,8 @@ Route::prefix('v1')->group(function () {
 
         Route::post('avatar',  [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
 
-        Route::get('posts',       [PostController::class, 'index'])->name('posts.index');
-        Route::get('posts/{post}',[PostController::class, 'show' ])->name('posts.show');
+        Route::apiResource('posts',       PostController::class)->only(['index', 'show']);
+
+        Route::apiResource('users', UserController::class)->only('index');
     });
 });
