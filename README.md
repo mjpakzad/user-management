@@ -104,9 +104,10 @@ docker compose exec user-management php artisan migrate --seed
 docker compose exec user-management php artisan test
 ```
 ### Accessing the Application
-- Application URL: http://localhost
-- Laravel Telescope: http://localhost/telescope
-- Laravel Horizon: http://localhost/horizon
+- **Application URL**: http://localhost
+- **Laravel Telescope**: http://localhost/telescope
+- **Laravel Horizon**: http://localhost/horizon
+- **Swagger UI**: http://localhost/api/documentation
 
 ## Additional Information
 ### Queue Management

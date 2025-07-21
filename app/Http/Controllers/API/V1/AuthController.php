@@ -29,7 +29,22 @@ class AuthController extends Controller
      *       @OA\Property(property="password", type="string", example="secret")
      *     )
      *   ),
-     *   @OA\Response(response=200, ref="#/components/schemas/TokenResponse")
+     *   @OA\Response(
+     *     response=200,
+     *     description="Token response",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         @OA\Property(property="access_token", type="string"),
+     *         @OA\Property(property="token_type",   type="string"),
+     *         @OA\Property(property="expires_in",   type="integer")
+     *       ),
+     *       @OA\Property(property="server_time", type="string", format="date-time")
+     *     )
+     *   ),
+     *   @OA\Response(response=401, description="Unauthorized")
      * )
      */
     public function register(RegisterRequest $request): JsonResponse
@@ -52,7 +67,21 @@ class AuthController extends Controller
      *       @OA\Property(property="password", type="string")
      *     )
      *   ),
-     *   @OA\Response(response=200, ref="#/components/schemas/TokenResponse"),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Token response",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         @OA\Property(property="access_token", type="string"),
+     *         @OA\Property(property="token_type",   type="string"),
+     *         @OA\Property(property="expires_in",   type="integer")
+     *       ),
+     *       @OA\Property(property="server_time", type="string", format="date-time")
+     *     )
+     *   ),
      *   @OA\Response(response=401, description="Unauthorized")
      * )
      */
@@ -69,7 +98,23 @@ class AuthController extends Controller
      *   tags={"Auth"},
      *   summary="Get current user profile",
      *   security={{"bearerAuth":{}}},
-     *   @OA\Response(response=200, ref="#/components/schemas/User")
+     *   @OA\Response(
+     *     response=200,
+     *     description="User profile",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         @OA\Property(property="id",         type="integer"),
+     *         @OA\Property(property="mobile",     type="string"),
+     *         @OA\Property(property="avatar",     type="string", nullable=true),
+     *         @OA\Property(property="created_at", type="string", format="date-time")
+     *       ),
+     *       @OA\Property(property="server_time", type="string", format="date-time")
+     *     )
+     *   ),
+     *   @OA\Response(response=401, description="Unauthorized")
      * )
      */
     public function me(): JsonResponse
@@ -83,14 +128,20 @@ class AuthController extends Controller
      *   tags={"Auth"},
      *   summary="Logout user",
      *   security={{"bearerAuth":{}}},
-     *   @OA\Response(response=200, description="Successfully logged out",
+     *   @OA\Response(
+     *     response=200,
+     *     description="Successfully logged out",
      *     @OA\JsonContent(
-     *       @OA\Property(property="data", type="object",
+     *       type="object",
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
      *         @OA\Property(property="message", type="string")
      *       ),
      *       @OA\Property(property="server_time", type="string", format="date-time")
      *     )
-     *   )
+     *   ),
+     *   @OA\Response(response=401, description="Unauthorized")
      * )
      */
     public function logout(): JsonResponse
@@ -106,7 +157,22 @@ class AuthController extends Controller
      *   tags={"Auth"},
      *   summary="Refresh JWT token",
      *   security={{"bearerAuth":{}}},
-     *   @OA\Response(response=200, ref="#/components/schemas/TokenResponse")
+     *   @OA\Response(
+     *     response=200,
+     *     description="Token response",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         @OA\Property(property="access_token", type="string"),
+     *         @OA\Property(property="token_type",   type="string"),
+     *         @OA\Property(property="expires_in",   type="integer")
+     *       ),
+     *       @OA\Property(property="server_time", type="string", format="date-time")
+     *     )
+     *   ),
+     *   @OA\Response(response=401, description="Unauthorized")
      * )
      */
     public function refresh(): JsonResponse

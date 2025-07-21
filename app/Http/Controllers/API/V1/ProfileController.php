@@ -44,12 +44,12 @@ class ProfileController extends Controller
      *     response=200,
      *     description="Avatar uploaded successfully",
      *     @OA\JsonContent(
-     *       required={"data","server_time"},
+     *       type="object",
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         @OA\Property(property="message",   type="string", example="Avatar uploaded successfully."),
-     *         @OA\Property(property="avatar_url", type="string", example="http://localhost/storage/avatars/xyz.jpg")
+     *         @OA\Property(property="message",    type="string"),
+     *         @OA\Property(property="avatar_url", type="string")
      *       ),
      *       @OA\Property(property="server_time", type="string", format="date-time")
      *     )
@@ -58,18 +58,18 @@ class ProfileController extends Controller
      *     response=422,
      *     description="Validation error",
      *     @OA\JsonContent(
-     *       required={"data","server_time"},
+     *       type="object",
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *         @OA\Property(property="message", type="string"),
      *         @OA\Property(
      *           property="errors",
      *           type="object",
      *           @OA\Property(
      *             property="avatar",
      *             type="array",
-     *             @OA\Items(type="string", example="The avatar field is required.")
+     *             @OA\Items(type="string")
      *           )
      *         )
      *       ),
